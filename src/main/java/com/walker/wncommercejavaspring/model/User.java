@@ -3,6 +3,7 @@ package com.walker.wncommercejavaspring.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,10 @@ public class User {
     //private List<String> roles;
 
 
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
+
+
     public User() {
     }
 
@@ -29,6 +34,16 @@ public class User {
         this.phone = phone;
         this.birthDate = birthDate;
         this.password = password;
+    }
+
+    public User(Long id, String name, String email, String phone, LocalDate birthDate, String password, List<Order> orders) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.password = password;
+        this.orders = orders;
     }
 
     public Long getId() {
@@ -77,5 +92,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
