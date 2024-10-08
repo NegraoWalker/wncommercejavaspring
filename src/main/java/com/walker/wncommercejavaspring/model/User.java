@@ -98,7 +98,9 @@ public class User {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+//    public void setOrders(List<Order> orders) { //Nunca é criado um setter para listas. Somente é permitido adicionar ou remover elementos da lista
+//        this.orders = orders;
+//    }
+
+
 }
