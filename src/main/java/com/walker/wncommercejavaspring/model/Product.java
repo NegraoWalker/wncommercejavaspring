@@ -3,6 +3,7 @@ package com.walker.wncommercejavaspring.model;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,24 +22,10 @@ public class Product {
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>(); //Usando Set para garantir que não tenha repetição entre o par categoria e produto
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
+
     public Product() {
-    }
-
-    public Product(Long id, String name, String description, Double price, String imgUrl) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imgUrl = imgUrl;
-    }
-
-    public Product(Long id, String name, String description, Double price, String imgUrl, Set<Category> categories) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imgUrl = imgUrl;
-        this.categories = categories;
     }
 
     public Long getId() {
@@ -83,5 +70,13 @@ public class Product {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public List<Order> getOrders() {
+        return items.stream().map(OrderItem::getOrder).toList();
     }
 }
