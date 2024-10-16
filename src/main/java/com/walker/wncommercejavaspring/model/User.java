@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(unique = true)
+    @Column(unique = true) //Define que cada usuário tem um email unico. Ou seja, usuário distintos não podem ter emails iguais
     private String email;
     private String phone;
     private LocalDate birthDate;
