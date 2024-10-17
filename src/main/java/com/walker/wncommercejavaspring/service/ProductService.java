@@ -47,6 +47,13 @@ public class ProductService {
         return new ProductDto(product);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        productRepository.deleteById(id);
+    }
+
+
+
 
 
     public void copyDtoToEntity(ProductDto productDto, Product product) {
