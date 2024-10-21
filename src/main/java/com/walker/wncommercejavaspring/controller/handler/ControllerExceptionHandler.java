@@ -1,6 +1,7 @@
 package com.walker.wncommercejavaspring.controller.handler;
 
 import com.walker.wncommercejavaspring.dto.CustomErrorDto;
+import com.walker.wncommercejavaspring.service.exception.DatabaseIntegrityViolationException;
 import com.walker.wncommercejavaspring.service.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,12 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CustomErrorDto> resourceNotFoundException(ResourceNotFoundException resourceNotFoundException, HttpServletRequest httpServletRequest) {
         HttpStatus httpStatus = HttpStatus.NOT_FOUND;
         CustomErrorDto customErrorDto = new CustomErrorDto(Instant.now(), httpStatus.value(), resourceNotFoundException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(customErrorDto);
+    }
+    @ExceptionHandler(DatabaseIntegrityViolationException.class)
+    public ResponseEntity<CustomErrorDto> databaseIntegrityViolationException(DatabaseIntegrityViolationException databaseIntegrityViolationException, HttpServletRequest httpServletRequest) {
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        CustomErrorDto customErrorDto = new CustomErrorDto(Instant.now(), httpStatus.value(), databaseIntegrityViolationException.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(customErrorDto);
     }
 }
