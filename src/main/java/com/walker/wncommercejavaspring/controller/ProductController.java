@@ -2,6 +2,7 @@ package com.walker.wncommercejavaspring.controller;
 
 import com.walker.wncommercejavaspring.dto.ProductDto;
 import com.walker.wncommercejavaspring.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,12 +28,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> insert(@RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> insert(@Valid @RequestBody ProductDto productDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.insert(productDto));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> update(@PathVariable Long id, @Valid @RequestBody ProductDto productDto) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.update(id, productDto));
     }
 
