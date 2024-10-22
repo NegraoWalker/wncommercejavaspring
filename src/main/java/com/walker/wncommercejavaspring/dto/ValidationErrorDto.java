@@ -12,12 +12,6 @@ public class ValidationErrorDto extends CustomErrorDto{
         super(timestamp, status, error, path);
     }
 
-    public ValidationErrorDto(Instant timestamp, Integer status, String error, String path, List<FieldMessageDto> errors) {
-        super(timestamp, status, error, path);
-        this.errors = errors;
-    }
-
-
     public List<FieldMessageDto> getErrors() {
         return errors;
     }
